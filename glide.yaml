@@ -1,0 +1,3 @@
+package: github.com/xcoulon/amap-bills
+import:
+- package: github.com/signintech/gopdf

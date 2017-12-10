@@ -1,0 +1,6 @@
+hash: cc9f3aad3950fa0ab05a70299828b0b0b4fe52e8d44c279b166306c7740dde3d
+updated: 2017-12-10T15:03:39.351884653+01:00
+imports:
+- name: github.com/signintech/gopdf
+  version: 50227327c222f066a8ea4825fc3bb6109aa66097
+testImports: []
