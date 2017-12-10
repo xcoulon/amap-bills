@@ -16,7 +16,8 @@ import (
 
 const (
 	// FontName the name of the font to use
-	FontName string = "SourceCodePro-Regular"
+	FontName   string = "SourceCodePro-Regular"
+	leftMargin string = "  "
 )
 
 func main() {
@@ -77,10 +78,10 @@ func generatePdf(headers, prices []string, userData [][]string) {
 			log.Print(err.Error())
 			return
 		}
-		pdf.Cell(nil, "Givrés d'Oranges - Décembre 2017")
+		pdf.Cell(nil, fmt.Sprintf("%sGivrés d'Oranges - Décembre 2017", leftMargin))
 		pdf.Br(getHeight(&parser, fontSize) * 2)
 		userName := strings.ToTitle(userData[0])
-		pdf.Cell(nil, userName)
+		pdf.Cell(nil, fmt.Sprintf("%s%s", leftMargin, userName))
 		pdf.Br(getHeight(&parser, fontSize) * 2)
 		// items
 		fontSize = 18
@@ -111,7 +112,7 @@ func generatePdf(headers, prices []string, userData [][]string) {
 			}
 			fmt.Printf("Item `%s`: quantity=%d / price=%f\n", header, quantity, price)
 			itemDescription := fmt.Sprintf("%s (%.2f€)", header, price)
-			billItem := fmt.Sprintf("%s%s%d", itemDescription,
+			billItem := fmt.Sprintf("%s%s%s%d", leftMargin, itemDescription,
 				strings.Repeat(".", 40-utf8.RuneCountInString(itemDescription)-utf8.RuneCountInString(strconv.Itoa(quantity))),
 				quantity)
 			pdf.Cell(nil, billItem)
@@ -120,8 +121,8 @@ func generatePdf(headers, prices []string, userData [][]string) {
 			totalPrice += float64(quantity) * price
 		}
 		pdf.Br(getHeight(&parser, fontSize) * 2)
-		totalPriceStr := fmt.Sprintf("Prix total: %.2f€", totalPrice)
-		pdf.Cell(nil, fmt.Sprintf("%s%s", strings.Repeat(" ", 40-utf8.RuneCountInString(totalPriceStr)), totalPriceStr))
+		totalPriceStr := fmt.Sprintf("%sPrix total: %.2f€", leftMargin, totalPrice)
+		pdf.Cell(nil, fmt.Sprintf("%s%s%s", leftMargin, strings.Repeat(" ", 40-utf8.RuneCountInString(totalPriceStr)), totalPriceStr))
 
 	}
 
